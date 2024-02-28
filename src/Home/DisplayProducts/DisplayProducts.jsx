@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const DisplayProducts = ({selectedCategory}) => {
-    
-    const [products, setProducts] = useState([]);
-    console.log(products)
-
-    useEffect(()=>{
-        const fetchProducts = async() =>{
-            try{
-                const response = await fetch(`https://fakestoreapi.com/products/category/${selectedCategory}`);
-                const data = await response.json();
-                setProducts(data);
-            }
-            catch (error){
-                console.error('error fetching products',error)
-            }
-        };
-        fetchProducts();
-    },[selectedCategory])
+const DisplayProducts = ({product}) => {
+    const { title, id, image:img, price} = product;
+    console.log(product)
     return (
-        <div>
-            <h2 className='text-center font-bold py-4'>Products for{selectedCategory}</h2>
-            <ul>
-                {
-                products.map(product => (<li key={product.id}>{product.title}</li>
-                ))
-                }
-            </ul>
+    <div className=''>
+        <div className="card card-compact w-96 bg-base-100 shadow-xl">
+            <figure><img src={img} className='w-8 h-8' alt="Shoes"/></figure>
+            <div className="card-body bg-base-200">
+                <p className='text-center border-b-gray-500'>{price}</p>
+                <h2 className=" text-center inline-block">{title.slice}</h2>
+            </div>
         </div>
+    </div>
+        
+
     );
 };
 
